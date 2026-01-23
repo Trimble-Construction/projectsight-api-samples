@@ -62048,15 +62048,11 @@
             "type": "boolean",
             "readOnly": true
           },
-          "TCToDos": {
+          "BCFTopics": {
             "type": "boolean",
             "readOnly": true
           },
           "Chatbot": {
-            "type": "boolean",
-            "readOnly": true
-          },
-          "AIDailyReport": {
             "type": "boolean",
             "readOnly": true
           },
