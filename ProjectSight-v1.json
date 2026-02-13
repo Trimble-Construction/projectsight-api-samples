@@ -62064,6 +62064,18 @@
             "type": "boolean",
             "readOnly": true
           },
+          "AIDailyReport": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "WorkflowTemplates": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "InfoManagement": {
+            "type": "boolean",
+            "readOnly": true
+          },
           "ContactSearchLimitToProject": {
             "type": "boolean",
             "readOnly": true
