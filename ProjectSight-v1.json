@@ -62194,13 +62194,13 @@
             "readOnly": true
           },
           "AdhocFirstName": {
-            "maxLength": 25,
+            "maxLength": 50,
             "type": "string",
             "nullable": true,
             "readOnly": true
           },
           "AdhocLastName": {
-            "maxLength": 25,
+            "maxLength": 50,
             "type": "string",
             "nullable": true,
             "readOnly": true
@@ -63047,17 +63047,17 @@
             "readOnly": true
           },
           "FirstName": {
-            "maxLength": 25,
+            "maxLength": 50,
             "type": "string",
             "nullable": true
           },
           "MiddleName": {
-            "maxLength": 25,
+            "maxLength": 50,
             "type": "string",
             "nullable": true
           },
           "LastName": {
-            "maxLength": 25,
+            "maxLength": 50,
             "type": "string",
             "nullable": true
           },
@@ -66027,6 +66027,11 @@
             "type": "string",
             "format": "date"
           },
+          "ReleasedDate": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
           "PublishedDate": {
             "type": "string",
             "format": "date",
@@ -66087,6 +66092,10 @@
               "Published"
             ],
             "type": "string"
+          },
+          "Is360VideoEnabled": {
+            "type": "boolean",
+            "readOnly": true
           },
           "WorkflowStatePermissionLevel": {
             "type": "integer",
@@ -66159,6 +66168,13 @@
             },
             "nullable": true
           },
+          "CourtesyCopies": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CourtesyCopy"
+            },
+            "nullable": true
+          },
           "RecordComments": {
             "type": "array",
             "items": {
@@ -66226,6 +66242,10 @@
           "AsBuiltIncludeFiles": {
             "type": "boolean",
             "description": "True if files that are linked to annotations are to be included in the asbuilt output"
+          },
+          "AsBuiltIncludeSiteCaptures": {
+            "type": "boolean",
+            "description": "True if site capture records that are linked to 360-photo and 360-video annotations are to be included in the asbuilt output"
           }
         },
         "additionalProperties": false,
@@ -71251,6 +71271,10 @@
             "maxLength": 100,
             "type": "string",
             "nullable": true,
+            "readOnly": true
+          },
+          "SiteCapture": {
+            "type": "boolean",
             "readOnly": true
           },
           "WhenCreated": {
@@ -78077,12 +78101,12 @@
             "readOnly": true
           },
           "FirstName": {
-            "maxLength": 25,
+            "maxLength": 50,
             "minLength": 1,
             "type": "string"
           },
           "LastName": {
-            "maxLength": 25,
+            "maxLength": 50,
             "minLength": 1,
             "type": "string"
           },
