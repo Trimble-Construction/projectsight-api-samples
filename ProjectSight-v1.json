@@ -46045,6 +46045,109 @@
         }
       }
     },
+    "/{portfolioGuid}/{projectId}/purchaseOrders/{poId}/unlock": {
+      "put": {
+        "tags": [
+          "PurchaseOrder"
+        ],
+        "summary": "Unlocks a PurchaseOrder by updating the IsLocked column",
+        "description": "Returns the updated PurchaseOrder information that the user has unlocked within the specified portfolio and project.",
+        "operationId": "PurchaseOrder_UnlockPurchaseOrder",
+        "parameters": [
+          {
+            "name": "portfolioGuid",
+            "in": "path",
+            "description": "Portfolio GUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "projectId",
+            "in": "path",
+            "description": "Project ID",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "poId",
+            "in": "path",
+            "description": "Purchase Orderid of the PurchaseOrder that needs to be unlocked",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "workflowstateId",
+            "in": "query",
+            "description": "the workflowstateid needs to be updated for the PurchaseOrder",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the updated PurchaseOrder information that the user has unlocked within the specified portfolio and project."
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Server refuses to fulfill the request. Please check the error message for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Please contact your administrator for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/{portfolioGuid}/records/changes": {
       "get": {
         "tags": [
