@@ -58779,28 +58779,6 @@
             "nullable": true,
             "readOnly": true
           },
-          "AuthorCompanyID": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true
-          },
-          "AuthorCompanyName": {
-            "maxLength": 100,
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "AuthorContactID": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true
-          },
-          "AuthorContactName": {
-            "maxLength": 150,
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
           "ProjectID": {
             "type": "integer",
             "format": "int32",
@@ -65319,28 +65297,6 @@
           "DateCreated": {
             "type": "string",
             "format": "date",
-            "nullable": true,
-            "readOnly": true
-          },
-          "AuthorCompanyID": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true
-          },
-          "AuthorCompanyName": {
-            "maxLength": 100,
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "AuthorContactID": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true
-          },
-          "AuthorContactName": {
-            "maxLength": 150,
-            "type": "string",
             "nullable": true,
             "readOnly": true
           },
@@ -78065,6 +78021,24 @@
             "type": "integer",
             "description": "For type LookupList, the ID of the lookup list associated with this field",
             "format": "int32"
+          },
+          "ProjectScope": {
+            "enum": [
+              "AllProjects",
+              "SpecificProjects",
+              "None"
+            ],
+            "type": "string",
+            "description": "Determines which projects this field is visible on.\r\nAllProjects = visible on all projects (default/global).\r\nSpecificProjects = visible only on the projects in ProjectIDs.\r\nNone = not visible on any project."
+          },
+          "ProjectIDs": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "description": "The IDs of the projects this field is visible on.\r\nPopulated when ProjectScope is SpecificProjects; empty otherwise.",
+            "nullable": true
           }
         },
         "additionalProperties": {},
