@@ -4,12 +4,6 @@
     "title": "ProjectSight",
     "version": "v1"
   },
-  "servers": [
-    {
-      "url": "https://global.api.trimble.com/projectsight/v1",
-      "description": "Global"
-    }
-  ],
   "paths": {
     "/accounts": {
       "get": {
@@ -71285,6 +71279,10 @@
             "type": "boolean",
             "readOnly": true
           },
+          "AIPunchAssist": {
+            "type": "boolean",
+            "readOnly": true
+          },
           "ContactSearchLimitToProject": {
             "type": "boolean",
             "readOnly": true
@@ -73814,6 +73812,10 @@
             "maxLength": 100,
             "type": "string",
             "nullable": true,
+            "readOnly": true
+          },
+          "IsAIGenerated": {
+            "type": "boolean",
             "readOnly": true
           },
           "WorkflowStatePermissionLevel": {
@@ -79060,16 +79062,13 @@
         "flows": {
           "clientCredentials": {
             "tokenUrl": "https://id.trimble.com/oauth/token",
-            "scopes": {
-              "client-name": "The name of the client application."
-            }
+            "scopes": {}
           },
           "authorizationCode": {
             "authorizationUrl": "https://id.trimble.com/oauth/authorize",
             "tokenUrl": "https://id.trimble.com/oauth/token",
             "scopes": {
-              "openid": "To get an ID token.",
-              "client-name": "The name of the client application."
+              "openid": "To get an ID token."
             }
           }
         }
