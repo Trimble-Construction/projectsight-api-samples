@@ -66066,7 +66066,7 @@
             "readOnly": true
           },
           "Number": {
-            "maxLength": 50,
+            "maxLength": 255,
             "minLength": 1,
             "type": "string"
           },
@@ -66124,6 +66124,18 @@
             "nullable": true,
             "readOnly": true
           },
+          "SuitabilityID": {
+            "type": "integer",
+            "description": "Lookup List Section 126",
+            "format": "int32",
+            "nullable": true
+          },
+          "SuitabilityStatus": {
+            "maxLength": 150,
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
           "GroupID": {
             "type": "integer",
             "description": "Lookup List Section 165",
@@ -66147,6 +66159,10 @@
             "type": "string"
           },
           "Is360VideoEnabled": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "IsInfoMgmtSourced": {
             "type": "boolean",
             "readOnly": true
           },
@@ -71276,6 +71292,10 @@
             "readOnly": true
           },
           "InfoManagement": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "AgenticPlatform": {
             "type": "boolean",
             "readOnly": true
           },
@@ -77026,6 +77046,30 @@
           "ActualDeliveryDate": {
             "type": "string",
             "format": "date",
+            "nullable": true
+          },
+          "StartDate": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "ApprovalTime": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "FabricationTime": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "DeliveryTime": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "IsLeadTimeIncl": {
+            "type": "boolean",
             "nullable": true
           },
           "WorkflowStatePermissionLevel": {
