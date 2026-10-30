@@ -50412,6 +50412,677 @@
         }
       }
     },
+    "/{portfolioGuid}/{projectId}/specifications/{specificationId}": {
+      "get": {
+        "tags": [
+          "Specification"
+        ],
+        "summary": "Get an individual Specification record.",
+        "operationId": "Specification_GetByID",
+        "parameters": [
+          {
+            "name": "portfolioGuid",
+            "in": "path",
+            "description": "Portfolio GUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "projectId",
+            "in": "path",
+            "description": "Project ID",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "specificationId",
+            "in": "path",
+            "description": "Specification ID",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Specification"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Specification"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{portfolioGuid}/{projectId}/specifications": {
+      "get": {
+        "tags": [
+          "Specification"
+        ],
+        "summary": "Get a collection of Specification records, including all children.",
+        "operationId": "Specification_List",
+        "parameters": [
+          {
+            "name": "portfolioGuid",
+            "in": "path",
+            "description": "Portfolio GUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "projectId",
+            "in": "path",
+            "description": "Project ID",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Number of records to skip",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of records to return",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Specification"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Specification"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{portfolioGuid}/specifications/query": {
+      "post": {
+        "tags": [
+          "Specification"
+        ],
+        "summary": "Get a collection of Specification records, including all children, based on a query.",
+        "operationId": "Specification_ListWithQuery",
+        "parameters": [
+          {
+            "name": "portfolioGuid",
+            "in": "path",
+            "description": "Portfolio GUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Query request",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/QueryRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QueryRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QueryRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/QueryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Specification"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Specification"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{portfolioGuid}/{projectId}/specifications/list": {
+      "get": {
+        "tags": [
+          "Specification"
+        ],
+        "summary": "Get a collection of Specification records without children.",
+        "operationId": "Specification_ListOnly",
+        "parameters": [
+          {
+            "name": "portfolioGuid",
+            "in": "path",
+            "description": "Portfolio GUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "projectId",
+            "in": "path",
+            "description": "Project ID",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Number of records to skip",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of records to return",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Specification"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Specification"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{portfolioGuid}/specifications/list": {
+      "post": {
+        "tags": [
+          "Specification"
+        ],
+        "summary": "Get a collection of Specification records based on a query that can select child tables.",
+        "operationId": "Specification_ListOnlyWithQuery",
+        "parameters": [
+          {
+            "name": "portfolioGuid",
+            "in": "path",
+            "description": "Portfolio GUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Query request",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/QueryRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QueryRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QueryRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/QueryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Specification"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Specification"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{portfolioGuid}/{projectId}/specifications/{specificationId}/content": {
+      "get": {
+        "tags": [
+          "Specification"
+        ],
+        "summary": "Download an individual Specification PDF.",
+        "operationId": "Specification_GetSpecificationFile",
+        "parameters": [
+          {
+            "name": "portfolioGuid",
+            "in": "path",
+            "description": "Portfolio GUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "projectId",
+            "in": "path",
+            "description": "Project ID",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "specificationId",
+            "in": "path",
+            "description": "Specification ID",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "redirect",
+            "in": "query",
+            "description": "Whether redirect delegation is allowed",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/{portfolioGuid}/{projectId}/SubContractCOs/{changeOrderId}": {
       "get": {
         "tags": [
@@ -57695,6 +58366,11 @@
             "nullable": true,
             "readOnly": true
           },
+          "WorkflowStateType": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
           "WorkflowTemplateId": {
             "type": "integer",
             "description": "The workflow template ID for the record. Changes to this value will be ignored when the record is being edited. When the record is being created, this will be used to enter the record into template workflow and values such as WorkflowState will be ignored.",
@@ -58270,6 +58946,11 @@
             "maxLength": 150,
             "type": "string",
             "nullable": true,
+            "readOnly": true
+          },
+          "WorkflowStateType": {
+            "type": "integer",
+            "format": "int32",
             "readOnly": true
           },
           "WorkflowTemplateId": {
@@ -59831,6 +60512,11 @@
             "format": "int32",
             "readOnly": true
           },
+          "WorkflowStateType": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
           "IsLocked": {
             "type": "boolean",
             "readOnly": true
@@ -60858,6 +61544,11 @@
             "nullable": true,
             "readOnly": true
           },
+          "WorkflowStateType": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
           "IsLocked": {
             "type": "boolean",
             "readOnly": true
@@ -61695,6 +62386,11 @@
             "nullable": true,
             "readOnly": true
           },
+          "WorkflowStateType": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
           "WorkflowTemplateId": {
             "type": "integer",
             "description": "The workflow template ID for the record. Changes to this value will be ignored when the record is being edited. When the record is being created, this will be used to enter the record into template workflow and values such as WorkflowState will be ignored.",
@@ -62091,6 +62787,11 @@
             "maxLength": 150,
             "type": "string",
             "nullable": true,
+            "readOnly": true
+          },
+          "WorkflowStateType": {
+            "type": "integer",
+            "format": "int32",
             "readOnly": true
           },
           "IsLocked": {
@@ -63670,6 +64371,11 @@
             "nullable": true,
             "readOnly": true
           },
+          "WorkflowStateType": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
           "WorkflowTemplateId": {
             "type": "integer",
             "description": "The workflow template ID for the record. Changes to this value will be ignored when the record is being edited. When the record is being created, this will be used to enter the record into template workflow and values such as WorkflowState will be ignored.",
@@ -64251,6 +64957,11 @@
             "maxLength": 150,
             "type": "string",
             "nullable": true,
+            "readOnly": true
+          },
+          "WorkflowStateType": {
+            "type": "integer",
+            "format": "int32",
             "readOnly": true
           },
           "WorkflowTemplateId": {
@@ -65592,6 +66303,11 @@
             "nullable": true,
             "readOnly": true
           },
+          "WorkflowStateType": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
           "WorkflowTemplateId": {
             "type": "integer",
             "description": "The workflow template ID for the record. Changes to this value will be ignored when the record is being edited. When the record is being created, this will be used to enter the record into template workflow and values such as WorkflowState will be ignored.",
@@ -66044,6 +66760,11 @@
             "type": "boolean",
             "readOnly": true
           },
+          "DrawingSeriesID": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
           "AuthorCompanyID": {
             "type": "integer",
             "format": "int32",
@@ -66179,6 +66900,11 @@
             "maxLength": 150,
             "type": "string",
             "nullable": true,
+            "readOnly": true
+          },
+          "WorkflowStateType": {
+            "type": "integer",
+            "format": "int32",
             "readOnly": true
           },
           "IsLocked": {
@@ -66501,6 +67227,11 @@
             "maxLength": 150,
             "type": "string",
             "nullable": true,
+            "readOnly": true
+          },
+          "WorkflowStateType": {
+            "type": "integer",
+            "format": "int32",
             "readOnly": true
           },
           "WorkflowTemplateId": {
@@ -67195,6 +67926,11 @@
             "nullable": true,
             "readOnly": true
           },
+          "WorkflowStateType": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
           "WorkflowTemplateId": {
             "type": "integer",
             "description": "The workflow template ID for the record. Changes to this value will be ignored when the record is being edited. When the record is being created, this will be used to enter the record into template workflow and values such as WorkflowState will be ignored.",
@@ -67824,6 +68560,11 @@
             "maxLength": 150,
             "type": "string",
             "nullable": true,
+            "readOnly": true
+          },
+          "WorkflowStateType": {
+            "type": "integer",
+            "format": "int32",
             "readOnly": true
           },
           "WorkflowTemplateId": {
@@ -68726,6 +69467,11 @@
             "nullable": true,
             "readOnly": true
           },
+          "WorkflowStateType": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
           "WorkflowTemplateId": {
             "type": "integer",
             "description": "The workflow template ID for the record. Changes to this value will be ignored when the record is being edited. When the record is being created, this will be used to enter the record into template workflow and values such as WorkflowState will be ignored.",
@@ -69417,6 +70163,11 @@
             "maxLength": 150,
             "type": "string",
             "nullable": true,
+            "readOnly": true
+          },
+          "WorkflowStateType": {
+            "type": "integer",
+            "format": "int32",
             "readOnly": true
           },
           "WorkflowTemplateId": {
@@ -70235,6 +70986,11 @@
             "nullable": true,
             "readOnly": true
           },
+          "WorkflowStateType": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
           "IsLocked": {
             "type": "boolean",
             "readOnly": true
@@ -70778,6 +71534,11 @@
             "nullable": true,
             "readOnly": true
           },
+          "WorkflowStateType": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
           "IsLocked": {
             "type": "boolean",
             "readOnly": true
@@ -70975,6 +71736,11 @@
             "maxLength": 150,
             "type": "string",
             "nullable": true,
+            "readOnly": true
+          },
+          "WorkflowStateType": {
+            "type": "integer",
+            "format": "int32",
             "readOnly": true
           },
           "WorkflowTemplateId": {
@@ -71695,6 +72461,11 @@
             "maxLength": 150,
             "type": "string",
             "nullable": true,
+            "readOnly": true
+          },
+          "WorkflowStateType": {
+            "type": "integer",
+            "format": "int32",
             "readOnly": true
           },
           "WorkflowTemplateId": {
@@ -72473,6 +73244,11 @@
             "maxLength": 150,
             "type": "string",
             "nullable": true,
+            "readOnly": true
+          },
+          "WorkflowStateType": {
+            "type": "integer",
+            "format": "int32",
             "readOnly": true
           },
           "WorkflowTemplateId": {
@@ -73271,6 +74047,11 @@
             "nullable": true,
             "readOnly": true
           },
+          "WorkflowStateType": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
           "IsLocked": {
             "type": "boolean",
             "readOnly": true
@@ -73853,6 +74634,11 @@
             "nullable": true,
             "readOnly": true
           },
+          "WorkflowStateType": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
           "WorkflowTemplateId": {
             "type": "integer",
             "description": "The workflow template ID for the record. Changes to this value will be ignored when the record is being edited. When the record is being created, this will be used to enter the record into template workflow and values such as WorkflowState will be ignored.",
@@ -74301,6 +75087,11 @@
             "maxLength": 150,
             "type": "string",
             "nullable": true,
+            "readOnly": true
+          },
+          "WorkflowStateType": {
+            "type": "integer",
+            "format": "int32",
             "readOnly": true
           },
           "WorkflowTemplateId": {
@@ -74957,6 +75748,11 @@
             "maxLength": 150,
             "type": "string",
             "nullable": true,
+            "readOnly": true
+          },
+          "WorkflowStateType": {
+            "type": "integer",
+            "format": "int32",
             "readOnly": true
           },
           "WorkflowTemplateId": {
@@ -75658,6 +76454,11 @@
             "nullable": true,
             "readOnly": true
           },
+          "WorkflowStateType": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
           "WorkflowTemplateId": {
             "type": "integer",
             "description": "The workflow template ID for the record. Changes to this value will be ignored when the record is being edited. When the record is being created, this will be used to enter the record into template workflow and values such as WorkflowState will be ignored.",
@@ -75871,6 +76672,167 @@
             "type": "string",
             "nullable": true,
             "readOnly": true
+          }
+        },
+        "additionalProperties": {}
+      },
+      "Specification": {
+        "required": [
+          "Description",
+          "SpecSection",
+          "WorkflowState"
+        ],
+        "type": "object",
+        "properties": {
+          "TableType": {
+            "type": "integer",
+            "description": "Table Type 98",
+            "format": "int32",
+            "readOnly": true
+          },
+          "SpecificationID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "SpecSetID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "GUID": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "Deleted": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "SpecSection": {
+            "maxLength": 30,
+            "minLength": 1,
+            "type": "string"
+          },
+          "Description": {
+            "maxLength": 255,
+            "minLength": 1,
+            "type": "string"
+          },
+          "SpecificationsSeriesID": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "GroupID": {
+            "type": "integer",
+            "description": "Lookup List Section 125",
+            "format": "int32",
+            "readOnly": true
+          },
+          "Group": {
+            "maxLength": 150,
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "WorkflowStatePermissionLevel": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "WorkflowState": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "WorkflowStateName": {
+            "maxLength": 150,
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "WorkflowStateType": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "IsLocked": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "SharedWith": {
+            "enum": [
+              "EntireProject",
+              "ParticipatingCompanies"
+            ],
+            "type": "string",
+            "nullable": true
+          },
+          "ProjectID": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "WhenCreated": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "CreatedBy": {
+            "maxLength": 255,
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "CreatedByContactID": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "CreatedByDisplayName": {
+            "maxLength": 255,
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "LastModified": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "LastModifiedBy": {
+            "maxLength": 255,
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "Assignees": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Assignee"
+            },
+            "nullable": true
+          },
+          "CourtesyCopies": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CourtesyCopy"
+            },
+            "nullable": true
+          },
+          "RecordToRecordLinks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RecordLink"
+            },
+            "nullable": true
+          },
+          "FileLinks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FileLink"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": {}
@@ -76139,6 +77101,11 @@
             "maxLength": 150,
             "type": "string",
             "nullable": true,
+            "readOnly": true
+          },
+          "WorkflowStateType": {
+            "type": "integer",
+            "format": "int32",
             "readOnly": true
           },
           "WorkflowTemplateId": {
@@ -76735,6 +77702,11 @@
             "nullable": true,
             "readOnly": true
           },
+          "WorkflowStateType": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
           "WorkflowTemplateId": {
             "type": "integer",
             "description": "The workflow template ID for the record. Changes to this value will be ignored when the record is being edited. When the record is being created, this will be used to enter the record into template workflow and values such as WorkflowState will be ignored.",
@@ -77087,6 +78059,11 @@
             "nullable": true,
             "readOnly": true
           },
+          "WorkflowStateType": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
           "WorkflowTemplateId": {
             "type": "integer",
             "description": "The workflow template ID for the record. Changes to this value will be ignored when the record is being edited. When the record is being created, this will be used to enter the record into template workflow and values such as WorkflowState will be ignored.",
@@ -77324,6 +78301,11 @@
             "maxLength": 150,
             "type": "string",
             "nullable": true,
+            "readOnly": true
+          },
+          "WorkflowStateType": {
+            "type": "integer",
+            "format": "int32",
             "readOnly": true
           },
           "WorkflowTemplateId": {
@@ -77706,6 +78688,11 @@
             "maxLength": 150,
             "type": "string",
             "nullable": true,
+            "readOnly": true
+          },
+          "WorkflowStateType": {
+            "type": "integer",
+            "format": "int32",
             "readOnly": true
           },
           "IsLocked": {

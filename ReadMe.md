@@ -1,4 +1,4 @@
-﻿This set of sample applications is designed to demonstrate the three primary methods that are available to connect to the ProjectSight API and to demonstrate some basic functionality and some more advanced techniques.
+This set of sample applications is designed to demonstrate the three primary methods that are available to connect to the ProjectSight API and to demonstrate some basic functionality and some more advanced techniques.
 
 ProjectSight.API.SampleApp is for applications that use TID v4 to connect to API applications hosted in API-X (https://api.trimblepaas.com). This is the most applicable sample for most API consumers.
 
@@ -12,5 +12,4 @@ This login will require that you create a user in Trimble Identity if you don't 
 
 For all new applications, you will also need to contact ProjectSight support. 
 
-The full set of steps needed to get up and running with the ProjectSight API can be found here: https://prod.projectsightapp.trimble.com/ReleaseNotes/Content/Release-Notes/API/API-Access.htm
-
+The full set of steps needed to get up and running with the ProjectSight API can be found here: https://help.trimble.com/doc/projectsight/projectsight/enterprise/projectsight-api
