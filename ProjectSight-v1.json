@@ -36115,8 +36115,8 @@
         "tags": [
           "Photo"
         ],
-        "summary": "Get a page of individual project photos",
-        "description": "Returns a permission-scoped, paginated collection of INDIVIDUAL photos within the specified portfolio\r\nand project (ELINK-198), for the Unity Construct photo attachment selector. Album records and album\r\nhierarchy are never returned, and photos in albums are returned alongside photos outside albums.\r\nPortfolio/project access and Photo record read permission are enforced; by confirmed product decision\r\nPhoto Album permissions are intentionally NOT applied (a deliberate deviation from PRD FR-2.x.14).\r\nEach item carries the metadata needed to build a Construct link without a second ProjectSight call.\r\nWhen includeThumbnails is true, an authorized same-origin thumbnail URL is returned\r\nfor each photo that has a thumbnail; thumbnail bytes are never embedded in the response.",
+        "summary": "Get Collection of Photos",
+        "description": "Returns the list of user accessible Photos for the given offset and limit.\r\nExample: If offset = 0 and limit = 4, then this action returns the first four photos.\r\nPhotos are returned whether or not they belong to an album.",
         "operationId": "Photo_GetPhotos",
         "parameters": [
           {
@@ -36143,7 +36143,7 @@
           {
             "name": "offset",
             "in": "query",
-            "description": "Number of eligible photos to skip from the beginning. Must be greater than or equal to 0.",
+            "description": "Number of photos to skip from the beginning.",
             "schema": {
               "type": "integer",
               "format": "int32",
@@ -36153,7 +36153,7 @@
           {
             "name": "limit",
             "in": "query",
-            "description": "Maximum number of photos to return. Must be between 1 and the documented maximum page size.",
+            "description": "Number of photos to retrieve, from 1 to 200.",
             "schema": {
               "type": "integer",
               "format": "int32",
@@ -36163,7 +36163,7 @@
           {
             "name": "includeThumbnails",
             "in": "query",
-            "description": "When true, include an authorized thumbnail URL for photos that have a thumbnail. Defaults to false.",
+            "description": "When true, includes a thumbnail URL for each Photo that has a thumbnail.",
             "schema": {
               "type": "boolean",
               "default": false
@@ -36172,7 +36172,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns a page of individual photos the caller is authorized to see within the specified portfolio and project.",
+            "description": "Returns the list of user accessible Photos for the given offset and limit.",
             "content": {
               "application/json": {
                 "schema": {
@@ -36187,7 +36187,7 @@
             }
           },
           "400": {
-            "description": "The paging arguments are invalid.",
+            "description": "Provided input is not valid",
             "content": {
               "application/json": {
                 "schema": {
@@ -36255,7 +36255,7 @@
           "Photo"
         ],
         "summary": "Get Photo Thumbnail",
-        "description": "Returns the authorized thumbnail image for an individual photo (ELINK-198). This route independently\r\nre-checks portfolio/project access and Photo record read permission and fails closed for unauthorized\r\ncallers, so the thumbnail URL cannot be used to bypass ProjectSight permissions.",
+        "description": "Returns the user accessible thumbnail image for the specified Photo",
         "operationId": "Photo_Thumbnail",
         "parameters": [
           {
@@ -36292,6 +36292,17 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Returns the requested user accessible Photo thumbnail.",
+            "content": {
+              "image/*": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
           "401": {
             "description": "Unauthorized Access",
             "content": {
@@ -36351,9 +36362,6 @@
                 }
               }
             }
-          },
-          "200": {
-            "description": "Returns the authorized thumbnail image for the requested photo."
           }
         }
       }
@@ -72250,43 +72258,43 @@
         "properties": {
           "PhotoId": {
             "type": "integer",
-            "description": "Stable ProjectSight photo identifier.",
+            "description": "The Photo's primary key",
             "format": "int32"
           },
           "Guid": {
             "type": "string",
-            "description": "Stable GUID resource reference for building the ProjectSight deep link.",
+            "description": "The Photo's GUID",
             "format": "uuid"
           },
           "FileName": {
             "type": "string",
-            "description": "Display file name or title.",
+            "description": "The file name of the Photo",
             "nullable": true
           },
           "Description": {
             "type": "string",
-            "description": "Description or caption, when present.",
+            "description": "The description of the Photo",
             "nullable": true
           },
           "DateCaptured": {
             "type": "string",
-            "description": "Captured date and time, when present.",
+            "description": "The Date/Time the Photo was captured",
             "format": "date-time",
             "nullable": true
           },
           "WhenUploaded": {
             "type": "string",
-            "description": "When the photo was uploaded (created or uploaded date).",
+            "description": "The Date/Time the Photo was uploaded",
             "format": "date-time"
           },
           "ThumbnailUrl": {
             "type": "string",
-            "description": "Authorized same-origin thumbnail URL. Null unless includeThumbnails=true and a thumbnail exists.\r\nNever contains base64 or embedded image bytes.",
+            "description": "The URL of the Photo thumbnail. Only set when includeThumbnails is true and the Photo has a thumbnail",
             "nullable": true
           }
         },
         "additionalProperties": {},
-        "description": "An individual photo returned by the public Photos API (ELINK-198). Contains the identifiers and\r\ndisplay metadata needed to create Unity Construct link metadata without a second ProjectSight call."
+        "description": "A Photo returned by the photos endpoint"
       },
       "PhotoPage": {
         "type": "object",
@@ -72296,31 +72304,31 @@
             "items": {
               "$ref": "#/components/schemas/PhotoListItem"
             },
-            "description": "The photos on this page, in deterministic order (upload date then photo id).",
+            "description": "The Photos on this page, ordered by upload date and then Photo ID",
             "nullable": true
           },
           "Offset": {
             "type": "integer",
-            "description": "The offset that produced this page.",
+            "description": "The offset used to retrieve this page",
             "format": "int32"
           },
           "Limit": {
             "type": "integer",
-            "description": "The maximum number of items requested for this page.",
+            "description": "The limit used to retrieve this page",
             "format": "int32"
           },
           "TotalCount": {
             "type": "integer",
-            "description": "Total number of eligible photos in the project across all pages.",
+            "description": "The total number of user accessible Photos in the project",
             "format": "int32"
           },
           "HasMore": {
             "type": "boolean",
-            "description": "True when more eligible photos exist beyond this page."
+            "description": "True if there are more Photos after this page"
           }
         },
         "additionalProperties": {},
-        "description": "One page of individual ProjectSight photos returned by the public Photos API (ELINK-198).\r\nThe endpoint returns individual photos only; album records and album hierarchy are never included."
+        "description": "A page of Photos returned by the Photos endpoint"
       },
       "Portfolio": {
         "required": [
