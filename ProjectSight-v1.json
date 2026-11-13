@@ -36110,6 +36110,262 @@
         }
       }
     },
+    "/{portfolioGuid}/{projectId}/photos": {
+      "get": {
+        "tags": [
+          "Photo"
+        ],
+        "summary": "Get Collection of Photos",
+        "description": "Returns the list of user accessible Photos for the given offset and limit.\r\nExample: If offset = 0 and limit = 4, then this action returns the first four photos.\r\nPhotos are returned whether or not they belong to an album.",
+        "operationId": "Photo_GetPhotos",
+        "parameters": [
+          {
+            "name": "portfolioGuid",
+            "in": "path",
+            "description": "Portfolio GUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "projectId",
+            "in": "path",
+            "description": "Project ID",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Number of photos to skip from the beginning.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of photos to retrieve, from 1 to 200.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 50
+            }
+          },
+          {
+            "name": "includeThumbnails",
+            "in": "query",
+            "description": "When true, includes a thumbnail URL for each Photo that has a thumbnail.",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the list of user accessible Photos for the given offset and limit.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PhotoPage"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PhotoPage"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Provided input is not valid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Server refuses to fulfill the request. Please check the error message for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Please contact your administrator for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{portfolioGuid}/{projectId}/photos/{photoId}/thumbnail": {
+      "get": {
+        "tags": [
+          "Photo"
+        ],
+        "summary": "Get Photo Thumbnail",
+        "description": "Returns the user accessible thumbnail image for the specified Photo",
+        "operationId": "Photo_Thumbnail",
+        "parameters": [
+          {
+            "name": "portfolioGuid",
+            "in": "path",
+            "description": "Portfolio GUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "projectId",
+            "in": "path",
+            "description": "Project ID",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "photoId",
+            "in": "path",
+            "description": "Photo ID",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the requested user accessible Photo thumbnail.",
+            "content": {
+              "image/*": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Server refuses to fulfill the request. Please check the error message for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No thumbnail exists for the requested photo.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Please contact your administrator for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/{portfolioGuid}/poCatalog/{poId}": {
       "get": {
         "tags": [
@@ -71996,6 +72252,83 @@
         },
         "additionalProperties": {},
         "description": "This class is intended for consumption only, not updates, which is why all of the properties are readonly"
+      },
+      "PhotoListItem": {
+        "type": "object",
+        "properties": {
+          "PhotoId": {
+            "type": "integer",
+            "description": "The Photo's primary key",
+            "format": "int32"
+          },
+          "Guid": {
+            "type": "string",
+            "description": "The Photo's GUID",
+            "format": "uuid"
+          },
+          "FileName": {
+            "type": "string",
+            "description": "The file name of the Photo",
+            "nullable": true
+          },
+          "Description": {
+            "type": "string",
+            "description": "The description of the Photo",
+            "nullable": true
+          },
+          "DateCaptured": {
+            "type": "string",
+            "description": "The Date/Time the Photo was captured",
+            "format": "date-time",
+            "nullable": true
+          },
+          "WhenUploaded": {
+            "type": "string",
+            "description": "The Date/Time the Photo was uploaded",
+            "format": "date-time"
+          },
+          "ThumbnailUrl": {
+            "type": "string",
+            "description": "The URL of the Photo thumbnail. Only set when includeThumbnails is true and the Photo has a thumbnail",
+            "nullable": true
+          }
+        },
+        "additionalProperties": {},
+        "description": "A Photo returned by the photos endpoint"
+      },
+      "PhotoPage": {
+        "type": "object",
+        "properties": {
+          "Items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PhotoListItem"
+            },
+            "description": "The Photos on this page, ordered by upload date and then Photo ID",
+            "nullable": true
+          },
+          "Offset": {
+            "type": "integer",
+            "description": "The offset used to retrieve this page",
+            "format": "int32"
+          },
+          "Limit": {
+            "type": "integer",
+            "description": "The limit used to retrieve this page",
+            "format": "int32"
+          },
+          "TotalCount": {
+            "type": "integer",
+            "description": "The total number of user accessible Photos in the project",
+            "format": "int32"
+          },
+          "HasMore": {
+            "type": "boolean",
+            "description": "True if there are more Photos after this page"
+          }
+        },
+        "additionalProperties": {},
+        "description": "A page of Photos returned by the Photos endpoint"
       },
       "Portfolio": {
         "required": [
