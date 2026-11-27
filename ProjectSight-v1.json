@@ -23195,7 +23195,7 @@
           "File"
         ],
         "summary": "Upload File",
-        "description": "Returns the uploaded File information within the specified Portfolio and Project.",
+        "description": "Returns the uploaded File information within the specified Portfolio and Project.\r\nThis endpoint uploads to the File Library (DMS) and does NOT validate the file name against a project's naming pattern.\r\nTo upload into Information Management with naming-pattern validation, use the informationManagement/uploadFile endpoint instead.",
         "operationId": "File_UploadFile",
         "parameters": [
           {
@@ -27656,6 +27656,124 @@
           },
           "410": {
             "description": "The request has been deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Please contact your administrator for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{portfolioGuid}/{projectId}/informationManagement/uploadFile": {
+      "post": {
+        "tags": [
+          "InformationManagement"
+        ],
+        "summary": "Uploads a single file into Information Management and validates it against the active naming pattern.",
+        "description": "This endpoint accepts one multipart file and rejects the upload when the file name does not match the active naming pattern assigned to the project.\r\nThis is distinct from the files/uploadFile endpoint, which uploads to the File Library (DMS) without any naming-pattern validation.\r\nWhen no naming pattern is assigned to the project, any file name is accepted.\r\nZip archives are rejected, and the destination folder must belong to the requested project.",
+        "operationId": "InformationManagement_UploadFile",
+        "parameters": [
+          {
+            "name": "portfolioGuid",
+            "in": "path",
+            "description": "Portfolio GUID.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "projectId",
+            "in": "path",
+            "description": "Project primary key.",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "folderId",
+            "in": "query",
+            "description": "Information Management folder identifier.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the Information Management file created by the upload.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InformationManagementUploadedFile"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InformationManagementUploadedFile"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Server refuses to fulfill the request. Please check the error message for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "The request content type must be multipart/form-data.",
             "content": {
               "application/json": {
                 "schema": {
@@ -34363,6 +34481,116 @@
           },
           "410": {
             "description": "The request has been deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Please contact your administrator for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{portfolioGuid}/{projectId}/namingPatterns/active": {
+      "get": {
+        "tags": [
+          "NamingPattern"
+        ],
+        "summary": "Gets the active naming pattern assigned to the specified project.",
+        "description": "Returns the full naming pattern structure, including memberships, component definitions, and component values.",
+        "operationId": "NamingPattern_GetActive",
+        "parameters": [
+          {
+            "name": "portfolioGuid",
+            "in": "path",
+            "description": "Portfolio GUID.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "projectId",
+            "in": "path",
+            "description": "Project primary key.",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the active naming pattern assigned to the requested project.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NamingPattern"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NamingPattern"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Server refuses to fulfill the request. Please check the error message for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No active naming pattern is assigned to the requested project.",
             "content": {
               "application/json": {
                 "schema": {
@@ -70074,6 +70302,76 @@
         },
         "additionalProperties": {}
       },
+      "InformationManagementUploadMetadata": {
+        "type": "object",
+        "properties": {
+          "Name": {
+            "$ref": "#/components/schemas/InformationManagementUploadMetadataField"
+          },
+          "Description": {
+            "$ref": "#/components/schemas/InformationManagementUploadMetadataField"
+          },
+          "Suitability": {
+            "$ref": "#/components/schemas/InformationManagementUploadMetadataField"
+          },
+          "Revision": {
+            "$ref": "#/components/schemas/InformationManagementUploadMetadataField"
+          }
+        },
+        "additionalProperties": false,
+        "description": "The metadata extracted from an Information Management upload."
+      },
+      "InformationManagementUploadMetadataField": {
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "string",
+            "description": "The extracted field value.",
+            "nullable": true
+          },
+          "IsValid": {
+            "type": "boolean",
+            "description": "Indicates whether the extracted value is valid for Information Management."
+          }
+        },
+        "additionalProperties": false,
+        "description": "A single extracted metadata field."
+      },
+      "InformationManagementUploadedFile": {
+        "type": "object",
+        "properties": {
+          "GUID": {
+            "type": "string",
+            "description": "The unique file GUID generated for the uploaded file.",
+            "nullable": true
+          },
+          "RecordId": {
+            "type": "string",
+            "description": "The Information Management record identifier created or matched for the upload.",
+            "nullable": true
+          },
+          "FileId": {
+            "type": "string",
+            "description": "The File Library identifier created for the uploaded file.",
+            "nullable": true
+          },
+          "FileSize": {
+            "type": "integer",
+            "description": "The uploaded file size in bytes.",
+            "format": "int64"
+          },
+          "FileName": {
+            "type": "string",
+            "description": "The client-visible file name.",
+            "nullable": true
+          },
+          "Metadata": {
+            "$ref": "#/components/schemas/InformationManagementUploadMetadata"
+          }
+        },
+        "additionalProperties": {},
+        "description": "The Information Management file created by an upload request."
+      },
       "Insurance": {
         "required": [
           "PolicyName"
@@ -71833,6 +72131,188 @@
         },
         "additionalProperties": {}
       },
+      "NamingComponent": {
+        "type": "object",
+        "properties": {
+          "ComponentID": {
+            "type": "integer",
+            "description": "The primary key of the component.",
+            "format": "int32"
+          },
+          "Name": {
+            "type": "string",
+            "description": "The display name of the component.",
+            "nullable": true
+          },
+          "Description": {
+            "type": "string",
+            "description": "The description of the component.",
+            "nullable": true
+          },
+          "ComponentTypeID": {
+            "type": "integer",
+            "description": "The component type identifier.",
+            "format": "int32"
+          },
+          "IsInUse": {
+            "type": "boolean",
+            "description": "Indicates whether the component is currently used by at least one pattern."
+          },
+          "Values": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NamingComponentValue"
+            },
+            "description": "The available values or validation definitions for the component.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "A reusable component used within a naming pattern."
+      },
+      "NamingComponentValue": {
+        "type": "object",
+        "properties": {
+          "ListValueID": {
+            "type": "integer",
+            "description": "The primary key of the component value.",
+            "format": "int32"
+          },
+          "ComponentID": {
+            "type": "integer",
+            "description": "The owning component identifier.",
+            "format": "int32"
+          },
+          "Value": {
+            "type": "string",
+            "description": "The stored value for the component option.",
+            "nullable": true
+          },
+          "DisplayText": {
+            "type": "string",
+            "description": "The display text shown for the value.",
+            "nullable": true
+          },
+          "IsActive": {
+            "type": "boolean",
+            "description": "Indicates whether this component value is active."
+          },
+          "ProjectID": {
+            "type": "integer",
+            "description": "The project-specific override identifier when present.",
+            "format": "int32",
+            "nullable": true
+          },
+          "MinLength": {
+            "type": "integer",
+            "description": "The minimum allowed length for free-text components.",
+            "format": "int32",
+            "nullable": true
+          },
+          "MaxLength": {
+            "type": "integer",
+            "description": "The maximum allowed length for free-text components.",
+            "format": "int32",
+            "nullable": true
+          },
+          "RegexPattern": {
+            "type": "string",
+            "description": "The regex pattern used to validate free-text components.",
+            "nullable": true
+          },
+          "AllowedCharacters": {
+            "type": "integer",
+            "description": "The allowed character type identifier.",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "A list value or validation rule for a naming component."
+      },
+      "NamingPattern": {
+        "type": "object",
+        "properties": {
+          "PatternID": {
+            "type": "integer",
+            "description": "The primary key of the naming pattern.",
+            "format": "int32"
+          },
+          "Name": {
+            "type": "string",
+            "description": "The display name of the naming pattern.",
+            "nullable": true
+          },
+          "Description": {
+            "type": "string",
+            "description": "The description of the naming pattern.",
+            "nullable": true
+          },
+          "State": {
+            "type": "integer",
+            "description": "The current state of the naming pattern.",
+            "format": "int32"
+          },
+          "IsDefault": {
+            "type": "boolean",
+            "description": "Indicates whether this is a system-provided default pattern."
+          },
+          "IsInUse": {
+            "type": "boolean",
+            "description": "Indicates whether this pattern is currently assigned to at least one project."
+          },
+          "FormatPreview": {
+            "type": "string",
+            "description": "A human-readable preview of the pattern format.",
+            "nullable": true
+          },
+          "Memberships": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NamingPatternMembership"
+            },
+            "description": "The ordered components that define the pattern.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": {},
+        "description": "The active naming pattern assigned to a project."
+      },
+      "NamingPatternMembership": {
+        "type": "object",
+        "properties": {
+          "MembershipID": {
+            "type": "integer",
+            "description": "The primary key of the membership.",
+            "format": "int32"
+          },
+          "PatternID": {
+            "type": "integer",
+            "description": "The owning naming pattern identifier.",
+            "format": "int32"
+          },
+          "ComponentID": {
+            "type": "integer",
+            "description": "The referenced naming component identifier.",
+            "format": "int32"
+          },
+          "SequenceNumber": {
+            "type": "integer",
+            "description": "The order of the component within the pattern.",
+            "format": "int32"
+          },
+          "Separator": {
+            "type": "string",
+            "description": "The separator appended after this component.",
+            "nullable": true
+          },
+          "Component": {
+            "$ref": "#/components/schemas/NamingComponent"
+          }
+        },
+        "additionalProperties": false,
+        "description": "A component membership within a naming pattern."
+      },
       "Notice": {
         "required": [
           "AuthorContactID",
@@ -72383,10 +72863,6 @@
             "readOnly": true
           },
           "BCFTopics": {
-            "type": "boolean",
-            "readOnly": true
-          },
-          "Chatbot": {
             "type": "boolean",
             "readOnly": true
           },
@@ -74617,6 +75093,10 @@
           "CopyNomenclature": {
             "type": "boolean",
             "description": "When true, any project-specific nomenclature will be copied if a CopyFromProjectID is specified"
+          },
+          "CopyNamingConventions": {
+            "type": "boolean",
+            "description": "When true, any project-specific naming convention assignments and component values will be copied if a CopyFromProjectID is specified"
           },
           "CopyPeriods": {
             "type": "boolean",
